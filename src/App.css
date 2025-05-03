@@ -12,20 +12,18 @@
 /* 🎨 Colors */
 :root {
   --color-white: #5CA191;
-  --color-background: #E4EDEA;
-  --color-darkgreen: #022F2E;
-  --color-highlightgreen: #92E3A9;
-  --color-grey: #626262;
-  --color-lightgreen: #D0E8DB;
-  --color-lightred: #E8D4D0;
-  --color-red: #EA7368;
+  --color-background: #E4EDEA; /* Use like this: bg-[var(--color-background)] */
+  --color-darkgreen: #022F2E; /* Use like this: bg-[var(--color-darkgreen)] */
+  --color-highlightgreen: #92E3A9; /* Use like this: bg-[var(--color-highlightgreen)] */
+  --color-grey: #626262; /* Use like this: bg-[var(--color-grey)] */
+  --color-lightgreen: #D0E8DB; /* Use like this: bg-[var(--color-lightgreen)] */
+  --color-lightred: #E8D4D0; /* Use like this: bg-[var(--color-lightred)] */
+  --color-red: #EA7368; /* Use like this: bg-[var(--color-red)] */
 }
 
 /* 🔤 Fonts */
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: var(--color-background);
-  color: var(--color-darkgreen);
 }
 
 .font-header {
