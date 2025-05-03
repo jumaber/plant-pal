@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;700;800&family=Roboto:wght@400;700&display=swap');
+
 @import "tailwindcss";
 @tailwind base;
 @tailwind components;
@@ -7,11 +9,9 @@
   margin: 0 auto;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;700;800&family=Roboto:wght@400;700&display=swap');
 
 /* 🎨 Colors */
 :root {
-  --color-white: #5CA191;
   --color-background: #E4EDEA; /* Use like this: bg-[var(--color-background)] */
   --color-darkgreen: #022F2E; /* Use like this: bg-[var(--color-darkgreen)] */
   --color-highlightgreen: #92E3A9; /* Use like this: bg-[var(--color-highlightgreen)] */
@@ -44,14 +44,13 @@ body {
 
 .text-h2 {
   font-size: 24px;
-  font-weight: 700;
-  color: var(--color-darkgreen);
+  font-weight: 800;
   font-family: 'Abhaya Libre', sans-serif;
 }
 
 .text-h3 {
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 800;
   font-family: 'Abhaya Libre', sans-serif;
 }
 
@@ -100,11 +99,11 @@ body {
 
 /* 🟦 Border Radius */
 .radius-rounded {
-  border-radius: 1.5rem;
+  border-radius: 2rem;
 }
 
 .radius-circular {
-  border-radius: 2rem;
+  border-radius: 3rem;
 }
 
 .radius-square {

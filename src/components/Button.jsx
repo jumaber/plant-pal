@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
-// This component should be deleted and we will only use the Button Component. Change all references to ButtonLarge to Button.
-export function ButtonLarge({
+export function Button({
   to = "/",
   text = "Add your first Plant",
   bgColor = "bg-[var(--color-highlightgreen)]",
@@ -19,5 +18,5 @@ export function ButtonLarge({
   );
 }
 
-// Use Button like this:
+// Use Button like this: 
 // <Button text="Add Plant" bgColor="bg-[var(--color-darkgreen)]" textColor="text-highlightgreen" width="max-w-fit" paddingx="px-4" />
