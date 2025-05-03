@@ -2,6 +2,7 @@ import { ButtonBack } from "../components/Button_Back"
 import { Button } from "../components/Button";
 import { ButtonNarrow } from "../components/Button_Narrow";
 import { ButtonCircle } from "../components/Button_Circle";
+import { WateringBar } from "../components/WateringBar";
 
 
 
@@ -9,9 +10,9 @@ import { NavBar } from "../components/Navbar"
 
 export function HomePage (){
     return (
-      <div className="bg-[var(--color-background)]">
+      <div className="bg-[var(--color-background)] p-4 md:px-8 lg:px-20">
         <NavBar />
-        <h2>My Plants</h2>
+        <div className="text-h1">My Plants</div>
 
         <Button
           text="Add your first Plant"
@@ -41,6 +42,7 @@ export function HomePage (){
         <ButtonCircle />
 
         <ButtonBack />
+        <WateringBar />
       </div>
     );
 }
