@@ -1,9 +1,3 @@
-import { ButtonBack } from "../components/Button_Back"
-import { Button } from "../components/Button";
-import { ButtonNarrow } from "../components/Button_Narrow";
-import { ButtonCircle } from "../components/Button_Circle";
-import { WateringBar } from "../components/WateringBar";
-import { PlantCard } from "../components/PlantCard";
 import { PlantList } from "../components/PlantList";
 
 
