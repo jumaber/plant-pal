@@ -1,8 +1,120 @@
-@import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;700;800&family=Roboto:wght@400;700&display=swap');
 
 @import "tailwindcss";
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 #root {
   margin: 0 auto;
+}
+
+
+/* 🎨 Colors */
+:root {
+  --color-background: #E4EDEA; /* Use like this: bg-[var(--color-background)] */
+  --color-darkgreen: #022F2E; /* Use like this: bg-[var(--color-darkgreen)] */
+  --color-highlightgreen: #92E3A9; /* Use like this: bg-[var(--color-highlightgreen)] */
+  --color-grey: #626262; /* Use like this: bg-[var(--color-grey)] */
+  --color-lightgreen: #D0E8DB; /* Use like this: bg-[var(--color-lightgreen)] */
+  --color-lightred: #E8D4D0; /* Use like this: bg-[var(--color-lightred)] */
+  --color-red: #EA7368; /* Use like this: bg-[var(--color-red)] */
+}
+
+/* 🔤 Fonts */
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.font-header {
+  font-family: 'Abhaya Libre', sans-serif;
+}
+
+.font-body {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* 🧱 Font Sizes */
+.text-h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--color-darkgreen);
+  font-family: 'Abhaya Libre', sans-serif;
+}
+
+.text-h2 {
+  font-size: 24px;
+  font-weight: 800;
+  font-family: 'Abhaya Libre', sans-serif;
+}
+
+.text-h3 {
+  font-size: 20px;
+  font-weight: 800;
+  font-family: 'Abhaya Libre', sans-serif;
+}
+
+.text-h4 {
+  font-size: 18px;
+  font-weight: 700;
+  font-family: 'Abhaya Libre', sans-serif;
+}
+
+.text-h5 {
+  font-size: 18px;
+  font-weight: 400;
+  font-family: 'Abhaya Libre', sans-serif;
+}
+
+.text-paragraph {
+  font-size: 18px;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+}
+
+.text-sub {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+}
+
+.text-placeholder {
+  font-size: 16px;
+  font-style: italic;
+  font-family: 'Roboto', sans-serif;
+  color: var(--color-grey);
+}
+
+.text-tag-selected {
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Roboto', sans-serif;
+}
+
+.text-tag {
+  font-size: 13px;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* 🟦 Border Radius */
+.radius-rounded {
+  border-radius: 2rem;
+}
+
+.radius-circular {
+  border-radius: 3rem;
+}
+
+.radius-square {
+  border-radius: 0.25rem;
+}
+
+/* 🕶 Shadows */
+.shadow-card {
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.shadow-navbar {
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.03);
 }
