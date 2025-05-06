@@ -11,7 +11,7 @@ export function Button({
   return (
     <Link
       to={to}
-      className={`flex ${width} justify-center radius-rounded text-center text-h3 font-bold m-4 py-[10px] ${paddingx} ${bgColor} ${textColor}`}
+      className={`flex ${width} justify-center radius-rounded text-center text-h3 font-bold py-[10px] ${paddingx} ${bgColor} ${textColor}`}
     >
       {text}
     </Link>
