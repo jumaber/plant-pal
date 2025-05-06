@@ -23,12 +23,12 @@ export function PlantList() {
       {" "}
       {plants.map((plant) => (
         <PlantCard
-          key={plant._id || plant.id} // depending on your DB
+          key={plant.id}
           name={plant.name}
-          image={plant.image}
+          image={plant.photo} // ✅ fix
           room={plant.room}
-          frequency={plant.wateringFrequency}
-          daysLeft={plant.daysLeft}
+          wateringFrequencyDays={plant.wateringFrequencyDays} // ✅ fix
+          lastWatered={plant.lastWatered} // ✅ fix
           thirstLevel={plant.thirstLevel}
         />
       ))}

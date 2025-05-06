@@ -21,11 +21,17 @@ export function PlantCard({
 
   return (
     <div className="flex flex-col bg-white radius-square p-4 max-w-lg">
-      <img
-        className="w-full aspect-square object-cover rounded-[0.25rem]"
-        src={image}
-        alt={name}
-      />
+      {image ? (
+        <img
+          className="w-full aspect-square object-cover rounded-[0.25rem]"
+          src={image}
+          alt={name}
+        />
+      ) : (
+        <div className="w-full aspect-square bg-stone-100 flex items-center justify-center rounded-[0.25rem] text-xl font-bold">
+        </div>
+      )}
+
       <div className="flex flex-row justify-between py-4">
         <div>
           <div className="text-h2">{name}</div>
