@@ -5,7 +5,7 @@ export function NavBar(){
     return (
         <nav>
             <h1>Plant Pal</h1>
-            <Link to="/AddPlant">
+            <Link to="/add">
             <ButtonLarge text="Add Plant" />
         </Link>
         </nav>
