@@ -5,7 +5,6 @@ import { ButtonCircle } from "../components/Button_Circle";
 import { WateringBar } from "../components/WateringBar";
 
 
-
 import { NavBar } from "../components/Navbar"
 
 export function HomePage (){
