@@ -1,19 +1,17 @@
-import { useState } from "react";
-
 export function ButtonCircle({
   text = "💦",
   bgColor = "bg-[var(--color-background)]",
+  onClick,
+  isWatered = false, // ✅ new prop from parent
 }) {
-  const [clicked, setClicked] = useState(false);
-
   return (
     <button
-      onClick={() => setClicked((prev) => !prev)}
+      onClick={onClick}
       className={`flex w-14 h-14 justify-center items-center radius-circular text-center text-h3 font-bold py-[10px] ${
-        clicked ? "bg-[var(--color-lightgreen)]" : bgColor
+        isWatered ? "bg-[var(--color-lightgreen)]" : bgColor
       }`}
     >
-      {clicked ? "✅" : text}
+      {isWatered ? "✅" : text}
     </button>
   );
 }

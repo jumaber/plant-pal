@@ -6,9 +6,7 @@ export function NavBar() {
       <Link to="/">
         <h1 className="text-darkgreen text-h3">🌱 Plant Pal</h1>
       </Link>
-      <Link to="/add">
-        <Button text="Add Plant" />
-      </Link>
+        <Button text="Add Plant" to="/add" />
     </nav>
   );
 }

@@ -22,7 +22,7 @@ export function WateringBar({
 
   // Message shown next to the bar, changes depending on status
   const textDisplay =
-    daysLeft === 1
+    daysLeft === 0
       ? "Water me today!"
       : overdue
       ? `${absDays} day${absDays > 1 ? "s" : ""} overdue`
