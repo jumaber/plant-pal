@@ -1,7 +1,4 @@
 import { PlantList } from "../components/PlantList";
-
-
-
 import { NavBar } from "../components/Navbar"
 
 export function HomePage (){

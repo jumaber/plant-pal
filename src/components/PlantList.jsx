@@ -20,7 +20,6 @@ export function PlantList() {
     lg:grid-cols-[repeat(auto-fit,minmax(360px,1fr))]
   "
     >
-      {" "}
       {plants.map((plant) => (
         <PlantCard
           key={plant.id}
