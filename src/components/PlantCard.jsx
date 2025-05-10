@@ -11,6 +11,7 @@ export function PlantCard({
   wateringFrequencyDays = 7,
   lastWatered = "2025-05-01",
   thirstLevel = 2,
+  onWatered,
 }) {
   const waterAmount = "💧".repeat(thirstLevel); // Creates a string with 💧 repeated based on thirstLevel.
 
@@ -59,25 +60,27 @@ export function PlantCard({
   };
 
   return (
-    <Link to={`/plant/${id}`}>
     <div className="flex flex-col bg-white radius-square p-4 max-w-lg">
-      {image ? (
-        <img
-          className="w-full aspect-square object-cover rounded-[0.25rem]"
-          src={image}
-          alt={name}
-        />
-      ) : (
-        <div className="w-full aspect-square bg-stone-100 flex items-center justify-center rounded-[0.25rem] text-xl font-bold">
-        </div>
-      )}
+      <Link to={`/plant/${id}`}>
+        {image ? (
+          <img
+            className="w-full aspect-square object-cover rounded-[0.25rem]"
+            src={image}
+            alt={name}
+          />
+        ) : (
+          <div className="w-full aspect-square bg-stone-100 flex items-center justify-center rounded-[0.25rem] text-xl font-bold"></div>
+        )}
+      </Link>
 
       <div className="flex flex-row justify-between py-4">
         <div>
           <div className="text-h2">{name}</div>
           <div className="text-sub text-[#006045]">{room}</div>
         </div>
-        <ButtonCircle />
+
+        <ButtonCircle onClick={handleWaterPlant} />
+        
       </div>
       <WateringBar
         frequency={wateringFrequencyDays}
@@ -85,6 +88,5 @@ export function PlantCard({
         waterAmount={waterAmount}
       />
     </div>
-    </Link>
   );
 }
