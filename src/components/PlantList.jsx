@@ -29,6 +29,7 @@ export function PlantList() {
       {plants.map((plant) => (
         <PlantCard
           key={plant.id}
+          id={plant.id}
           name={plant.name}
           id={plant.id}
           image={plant.photo}
