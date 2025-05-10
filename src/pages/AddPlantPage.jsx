@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import close from "../assets/close.svg"
-import { ButtonNarrow } from "../components/ButtonNarrow"
+import close from "../assets/close.svg";
+import { ButtonNarrow } from "../components/ButtonNarrow";
 import { Button } from "../components/Button";
-
-import { Pill } from "../components/Pill"
-
+import { Pill } from "../components/Pill";
 
 export function AddPlantPage() {
   const [name, setName] = useState("");
@@ -15,12 +13,12 @@ export function AddPlantPage() {
   const [lastWatered, setLastWatered] = useState("");
   const [wateringFrequencyDays, setWateringFrequencyDays] = useState("");
   const [wateringUnit, setWateringUnit] = useState("days");
-
   const [careTips, setCareTips] = useState("");
-
   const [thirstLevel, setThirstLevel] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
-  const navigate = useNavigate(); // Hook to redirect after submission
+  const navigate = useNavigate();
 
   const roomOptions = [
     "Kitchen Window",
@@ -30,18 +28,91 @@ export function AddPlantPage() {
     "Balcony",
     "Parents Room",
     "Marius Room",
-    "Caterina Room"
+    "Caterina Room",
   ];
 
   const locationOptions = ["Indoor", "Outdoor", "Indoor & Outdoor"];
 
   const thirstLevelOptions = ["💧 Light", "💧💧 Moderate ", "💧💧💧 Generous"];
 
-  // const handleSubmit {}
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImageFile(file);
+    setImagePreview(URL.createObjectURL(file));
+  };
+
+  const uploadImageToCloudinary = async (file) => {
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "plants");
+
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/jumaber/image/upload",
+      {
+        method: "POST",
+        body: data,
+      }
+    );
+
+    const result = await response.json();
+    return result.secure_url;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let uploadedImageUrl = "";
+    if (imageFile) {
+      uploadedImageUrl = await uploadImageToCloudinary(imageFile);
+    }
+
+    const newPlant = {
+      name,
+      scientificName,
+      location,
+      room,
+      lastWatered,
+      wateringFrequencyDays: Number(wateringFrequencyDays),
+      wateringUnit,
+      thirstLevel,
+      careTips,
+      photo: uploadedImageUrl,
+    };
+
+    console.log("Sending this plant:", newPlant);
+
+    try {
+      const response = await fetch(
+        "https://plantpal-backend-9iz1.onrender.com/plants",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newPlant),
+        }
+      );
+
+      const text = await response.text(); 
+      console.log("Raw response text:", text);
+
+      if (!response.ok) {
+        throw new Error("Failed to save plant to server");
+      }
+
+      navigate("/");
+    } catch (error) {
+      console.error("Error saving plant:", error);
+      alert("Oops! Something went wrong while saving your plant.");
+    }
+  };
+
+
+
 
   return (
     <div className="flex justify-center p-4 md:p-8 lg:p-20 lg:px-20">
-      <div className="flex flex-col w-full  max-w-4xl justify-center">
+      <div className="flex flex-col w-full max-w-4xl justify-center">
         <div className="flex flex-row w-full justify-between">
           <h1 className="text-h1">Add Plant</h1>
           <img
@@ -51,10 +122,8 @@ export function AddPlantPage() {
             onClick={() => navigate("/")}
           />
         </div>
-        <form>
-          {/* onSubmit={handleSubmit}*}
-
-        {/* Common Name */}
+        <form onSubmit={handleSubmit}>
+          {/* Common Name */}
           <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
             <div className="text-h3 pb-2 text-bg-[var(--color-darkgreen)]">
               Common Name
@@ -65,7 +134,7 @@ export function AddPlantPage() {
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g., Spider Plant"
               className="bg-white flex w-full p-3 rounded-sm text-placeholder"
-            ></input>
+            />
           </div>
 
           {/* Scientific Name */}
@@ -79,7 +148,7 @@ export function AddPlantPage() {
               onChange={(e) => setScientificName(e.target.value)}
               placeholder="e.g., Euphorbia leuconeura"
               className="bg-white flex w-full p-3 rounded-sm text-placeholder"
-            ></input>
+            />
           </div>
 
           {/* Location */}
@@ -128,22 +197,15 @@ export function AddPlantPage() {
               value={lastWatered}
               onChange={(e) => setLastWatered(e.target.value)}
               className="bg-white flex w-full p-3 rounded-sm text-placeholder"
-            ></input>
+            />
           </div>
 
-          {/* Watering Frequency*/}
+          {/* Watering Frequency */}
           <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
             <div className="text-h3 pb-2 text-bg-[var(--color-darkgreen)]">
               Watering Frequency
             </div>
-
-            {/* Winter */}
             <div className="flex flex-row w-full items-center gap-2 md:gap-4">
-              {/* <label className="body lg:pr-4 text-[var(--color-grey)]">
-              Winter
-            </label> */}
-
-              {/* Value Picker */}
               <div className="relative w-1/2">
                 <select
                   value={wateringFrequencyDays}
@@ -160,8 +222,6 @@ export function AddPlantPage() {
                   ⌄
                 </div>
               </div>
-
-              {/* Unit Picker */}
               <div className="relative w-1/2">
                 <select
                   value={wateringUnit}
@@ -179,7 +239,7 @@ export function AddPlantPage() {
             </div>
           </div>
 
-          {/* Watering Amount*/}
+          {/* Watering Amount */}
           <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
             <div className="text-h3 pb-2 text-bg-[var(--color-darkgreen)]">
               Watering Amount
@@ -196,6 +256,7 @@ export function AddPlantPage() {
               ))}
             </div>
           </div>
+
           {/* Care Tips */}
           <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
             <div className="text-h3 pb-2 text-bg-[var(--color-darkgreen)]">
@@ -205,24 +266,36 @@ export function AddPlantPage() {
               type="text"
               value={careTips}
               onChange={(e) => setCareTips(e.target.value)}
-              placeholder="e.g., Euphorbia leuconeura"
+              placeholder="e.g., Avoid direct sunlight"
               className="bg-white flex w-full p-3 rounded-sm text-placeholder"
             ></textarea>
           </div>
 
-          {/* Image */}
+          {/* Image Upload */}
           <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
-            <div className="flex flex-row justify-between items-star">
-              <div className="text-h3 pb-2 text-bg-[var(--color-darkgreen)]">
-                Image
-              </div>
-              <ButtonNarrow text="Add Room" />
+            <div className="text-h3 text-[var(--color-darkgreen)] mb-2">
+              Image
             </div>
+            <input type="file" accept="image/*" onChange={handleImageChange} />
+            {imagePreview && (
+              <img
+                src={imagePreview}
+                alt="Preview"
+                className="w-32 h-32 object-cover mt-2 rounded-sm"
+              />
+            )}
+          </div>
+
+          {/* Submit Button */}
+          <div className="my-4">
+            <button
+              type="submit"
+              className="w-full bg-green-600 text-white py-3 rounded"
+            >
+              Add a new Plant
+            </button>
           </div>
         </form>
-        <div className="my-4">
-          <Button width="full" text="Add a new Plant" />
-        </div>
       </div>
     </div>
   );
