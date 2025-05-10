@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
+import { ButtonNarrow } from "../components/ButtonNarrow"
 import close from "../assets/close.svg";
 import { Pill } from "../components/Pill";
 import { SubmitStatus } from "../components/SubmissionStatus";
@@ -278,16 +279,35 @@ export function AddPlantPage() {
           </div>
 
           {/* Image Upload */}
-          <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
-            <div className="text-h3 text-[var(--color-darkgreen)] mb-2">
-              Image
+          <div className="bg-[var(--color-background)] md:p-4 mt-6 rounded-sm">
+            <div className="flex flex-row gap-4 justify-between items-center">
+              <div className="text-h3 text-[var(--color-darkgreen)] mb-2">
+                Image
+              </div>
+              <label className="inline-block">
+                <input
+                  id="plant-image"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="hidden"
+                />
+
+                <button
+                  type="button"
+                  onClick={() => document.getElementById("plant-image").click()}
+                  className="bg-[var(--color-darkgreen)] text-white text-sub py-2 px-6 rounded radius-rounded"
+                >
+                  {imageFile ? "Change Image" : "Upload Image"}
+                </button>
+              </label>
             </div>
-            <input type="file" accept="image/*" onChange={handleImageChange} />
+
             {imagePreview && (
               <img
                 src={imagePreview}
                 alt="Preview"
-                className="w-32 h-32 object-cover mt-2 rounded-sm"
+                className="w-full aspect-square object-cover mt-2 rounded-sm"
               />
             )}
           </div>
