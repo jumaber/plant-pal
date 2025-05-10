@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
 import { ButtonCircle } from "./Button_Circle";
 import { WateringBar } from "./WateringBar";
 
 export function PlantCard({
+  id,
   name = "Madagascar Jewel",
   image = "src/assets/7.jpeg",
   room = "Kitchen",
@@ -20,6 +22,7 @@ export function PlantCard({
   const daysLeft = Math.max(wateringFrequencyDays - daysSinceWatered, 0);
 
   return (
+    <Link to={`/plant/${id}`}>
     <div className="flex flex-col bg-white radius-square p-4 max-w-lg">
       {image ? (
         <img
@@ -45,5 +48,6 @@ export function PlantCard({
         waterAmount={waterAmount}
       />
     </div>
+    </Link>
   );
 }

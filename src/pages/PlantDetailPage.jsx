@@ -37,7 +37,7 @@ export function PlantDetailPage() {
         <div className="flex flex-col lg:flex-row lg:gap-8 justify-between">
           {/* IMAGEM */}
           <div className="w-full lg:w-1/2 lg:h-fit bg-white rounded-md shadow-md p-4 flex justify-center items-center">
-            <i
+            <img
               className="bg-gray-200 w-full aspect-square object-cover radius-square"
               src={plant.photo}
               alt={plant.name}

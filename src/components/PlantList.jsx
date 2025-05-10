@@ -24,6 +24,7 @@ export function PlantList() {
       {plants.map((plant) => (
         <PlantCard
           key={plant.id}
+          id={plant.id}
           name={plant.name}
           image={plant.photo} // ✅ fix
           room={plant.room}
