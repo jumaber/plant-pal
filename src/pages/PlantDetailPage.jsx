@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { NavBar } from "../components/Navbar";
-import { Button } from "../components/Button";
 import { ButtonBack } from "../components/Button_Back";
-import { ButtonNarrow } from "../components/Button_Narrow";
+import { ButtonNarrow } from "../components/ButtonNarrow";
 import { WateringBar } from "../components/WateringBar";
 import { ButtonCircle } from "../components/Button_Circle";
 

@@ -12,6 +12,7 @@ export function ButtonNarrow({
     <Link
       to={to}
       className={`flex ${width} max-w-fit justify-center radius-rounded text-center ${textColor} text-h4 font-body ${bgColor} text-lg py-2 ${paddingx}`}
+    >
       {text}
     </Link>
   );

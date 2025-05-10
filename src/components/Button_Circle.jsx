@@ -1,7 +1,11 @@
+import { useState } from "react";
+
 export function ButtonCircle({
   text = "💦",
   bgColor = "bg-[var(--color-background)]",
 }) {
+  const [clicked, setClicked] = useState(false);
+
   return (
     <button
       onClick={() => setClicked((prev) => !prev)}
@@ -9,7 +13,7 @@ export function ButtonCircle({
         clicked ? "bg-[var(--color-lightgreen)]" : bgColor
       }`}
     >
-      {isWatered ? "✅" : text}
+      {clicked ? "✅" : text}
     </button>
   );
 }
