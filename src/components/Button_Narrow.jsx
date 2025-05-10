@@ -2,13 +2,16 @@ import { Link } from "react-router-dom";
 
 export function ButtonNarrow({
   to = "/",
-  text = "Mark as watered 💦",
+  text = "Add your first Plant",
+  bgColor = "bg-[var(--color-highlightgreen)]",
+  textColor = "text-darkgreen",
   width = "max-w-fit",
+  paddingx = "px-6",
 }) {
   return (
     <Link
       to={to}
-      className={`flex ${width} max-w-fit justify-center radius-rounded text-center text-white text-base font-body bg-[var(--color-darkgreen)] text-lg font-bold m-4 py-2 px-6`}
+      className={`flex ${width} max-w-fit justify-center radius-rounded text-center ${textColor} text-h4 font-body ${bgColor} text-lg py-2 ${paddingx}`}
     >
       {text}
     </Link>
