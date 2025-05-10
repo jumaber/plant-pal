@@ -1,4 +1,8 @@
 import { useParams } from "react-router-dom";
+import { NavBar } from "../components/Navbar";
+import { Button } from "../components/Button";
+import { ButtonBack } from "../components/Button_Back";
+import { ButtonNarrow } from "../components/Button_Narrow";
 
 export function PlantDetailPage() {
   const { id } = useParams();
