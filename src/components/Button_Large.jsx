@@ -1,23 +1,7 @@
-import { Link } from "react-router-dom";
-
-// This component should be deleted and we will only use the Button Component. Change all references to ButtonLarge to Button.
-export function ButtonLarge({
-  to = "/",
-  text = "Add your first Plant",
-  bgColor = "bg-[var(--color-highlightgreen)]",
-  textColor = "text-darkgreen",
-  width = "max-w-fit",
-  paddingx = "px-4",
-}) {
-  return (
-    <Link
-      to={to}
-      className={`flex ${width} justify-center radius-rounded text-center text-h3 font-bold m-4 py-[10px] ${paddingx} ${bgColor} ${textColor}`}
-    >
-      {text}
-    </Link>
-  );
-}
-
-// Use Button like this:
-// <Button text="Add Plant" bgColor="bg-[var(--color-darkgreen)]" textColor="text-highlightgreen" width="max-w-fit" paddingx="px-4" />
+export function Button_Large({ onClick, text }) {
+    return (
+      <button className="btn-large" onClick={onClick}>
+        {text}
+      </button>
+    )
+  }
