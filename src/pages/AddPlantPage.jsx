@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import close from "../assets/close.svg"
 import { ButtonNarrow } from "../components/ButtonNarrow"
+import { Button } from "../components/Button";
+
 import { Pill } from "../components/Pill"
 
 
@@ -38,167 +40,172 @@ export function AddPlantPage() {
   // const handleSubmit {}
 
   return (
-    <div className="flex flex-col gap-8 px-4  py-24 lg:py–30 md:px-8 lg:px-20">
-      <div className="flex flex-row justify-between">
-        <h1 className="text-h1">Add Plant</h1>
-        <img
-          src={close}
-          alt="Close icon"
-          className="cursor-pointer"
-          onClick={() => navigate("/")}
-        />
-      </div>
-      <form>
-        {/* onSubmit={handleSubmit}*/}
+    <div className="flex justify-center px-4 py-24 lg:py-30 md:px-8 lg:px-20">
+      <div className="flex flex-col w-full  max-w-4xl justify-center">
+        <div className="flex flex-row w-full justify-between">
+          <h1 className="text-h1">Add Plant</h1>
+          <img
+            src={close}
+            alt="Close icon"
+            className="cursor-pointer"
+            onClick={() => navigate("/")}
+          />
+        </div>
+        <form>
+          {/* onSubmit={handleSubmit}*}
 
         {/* Common Name */}
-        <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
-          <div className="text-h3 pb-2">Common Name</div>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="e.g., Spider Plant"
-            className="bg-white flex w-full p-3 rounded-sm text-placeholder"
-          ></input>
-        </div>
-
-        {/* Scientific Name */}
-        <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
-          <div className="text-h3 pb-2">Scientific Name</div>
-          <input
-            type="text"
-            value={scientificName}
-            onChange={(e) => setScientificName(e.target.value)}
-            placeholder="e.g., Euphorbia leuconeura"
-            className="bg-white flex w-full p-3 rounded-sm text-placeholder"
-          ></input>
-        </div>
-
-        {/* Location */}
-        <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
-          <div className="text-h3 pb-2">Location</div>
-          <div className="flex flex-wrap gap-2">
-            {locationOptions.map((option) => (
-              <Pill
-                key={option}
-                label={option}
-                selected={location === option}
-                onClick={() => setLocation(option)}
-                variant="select"
-              />
-            ))}
+          <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
+            <div className="text-h3 pb-2">Common Name</div>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="e.g., Spider Plant"
+              className="bg-white flex w-full p-3 rounded-sm text-placeholder"
+            ></input>
           </div>
-        </div>
 
-        {/* Room */}
-        <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
-          <div className="text-h3 pb-2">Room</div>
-          <div className="flex flex-wrap gap-2">
-            {roomOptions.map((option) => (
-              <Pill
-                key={option}
-                label={option}
-                selected={room === option}
-                onClick={() => setRoom(option)}
-                variant="select"
-              />
-            ))}
+          {/* Scientific Name */}
+          <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
+            <div className="text-h3 pb-2">Scientific Name</div>
+            <input
+              type="text"
+              value={scientificName}
+              onChange={(e) => setScientificName(e.target.value)}
+              placeholder="e.g., Euphorbia leuconeura"
+              className="bg-white flex w-full p-3 rounded-sm text-placeholder"
+            ></input>
           </div>
-        </div>
 
-        {/* Last Watered On */}
-        <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
-          <div className="text-h3 pb-2">Last Watered On...</div>
-          <input
-            type="date"
-            value={lastWatered}
-            onChange={(e) => setLastWatered(e.target.value)}
-            className="bg-white flex w-full p-3 rounded-sm text-placeholder"
-          ></input>
-        </div>
+          {/* Location */}
+          <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
+            <div className="text-h3 pb-2">Location</div>
+            <div className="flex flex-wrap gap-2">
+              {locationOptions.map((option) => (
+                <Pill
+                  key={option}
+                  label={option}
+                  selected={location === option}
+                  onClick={() => setLocation(option)}
+                  variant="select"
+                />
+              ))}
+            </div>
+          </div>
 
-        {/* Watering Frequency*/}
-        <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
-          <div className="text-h3 pb-2">Watering Frequency</div>
+          {/* Room */}
+          <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
+            <div className="text-h3 pb-2">Room</div>
+            <div className="flex flex-wrap gap-2">
+              {roomOptions.map((option) => (
+                <Pill
+                  key={option}
+                  label={option}
+                  selected={room === option}
+                  onClick={() => setRoom(option)}
+                  variant="select"
+                />
+              ))}
+            </div>
+          </div>
 
-          {/* Winter */}
-          <div className="flex flex-row w-full items-center gap-2 md:gap-4">
-            {/* <label className="body lg:pr-4 text-[var(--color-grey)]">
+          {/* Last Watered On */}
+          <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
+            <div className="text-h3 pb-2">Last Watered On...</div>
+            <input
+              type="date"
+              value={lastWatered}
+              onChange={(e) => setLastWatered(e.target.value)}
+              className="bg-white flex w-full p-3 rounded-sm text-placeholder"
+            ></input>
+          </div>
+
+          {/* Watering Frequency*/}
+          <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
+            <div className="text-h3 pb-2">Watering Frequency</div>
+
+            {/* Winter */}
+            <div className="flex flex-row w-full items-center gap-2 md:gap-4">
+              {/* <label className="body lg:pr-4 text-[var(--color-grey)]">
               Winter
             </label> */}
 
-            {/* Value Picker */}
-            <div className="relative w-1/2">
-              <select
-                value={wateringFrequencyDays}
-                onChange={(e) => setWateringFrequencyDays(e.target.value)}
-                className="bg-white appearance-none p-4 pr-10 w-full rounded-sm text-paragraph text-[var(--color-darkgreen)]"
-              >
-                {[...Array(30)].map((_, i) => (
-                  <option key={i + 1} value={i + 1}>
-                    {i + 1}
-                  </option>
-                ))}
-              </select>
-              <div className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2 text-[var(--color-darkgreen)]">
-                ⌄
+              {/* Value Picker */}
+              <div className="relative w-1/2">
+                <select
+                  value={wateringFrequencyDays}
+                  onChange={(e) => setWateringFrequencyDays(e.target.value)}
+                  className="bg-white appearance-none p-4 pr-10 w-full rounded-sm text-paragraph text-[var(--color-darkgreen)]"
+                >
+                  {[...Array(30)].map((_, i) => (
+                    <option key={i + 1} value={i + 1}>
+                      {i + 1}
+                    </option>
+                  ))}
+                </select>
+                <div className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2 text-[var(--color-darkgreen)]">
+                  ⌄
+                </div>
+              </div>
+
+              {/* Unit Picker */}
+              <div className="relative w-1/2">
+                <select
+                  value={wateringUnit}
+                  onChange={(e) => setWateringUnit(e.target.value)}
+                  className="bg-white appearance-none p-4 pr-10 w-full rounded-sm text-paragraph text-[var(--color-darkgreen)]"
+                >
+                  <option value="days">Days</option>
+                  <option value="weeks">Weeks</option>
+                  <option value="months">Months</option>
+                </select>
+                <div className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2 text-[var(--color-darkgreen)]">
+                  ⌄
+                </div>
               </div>
             </div>
+          </div>
 
-            {/* Unit Picker */}
-            <div className="relative w-1/2">
-              <select
-                value={wateringUnit}
-                onChange={(e) => setWateringUnit(e.target.value)}
-                className="bg-white appearance-none p-4 pr-10 w-full rounded-sm text-paragraph text-[var(--color-darkgreen)]"
-              >
-                <option value="days">Days</option>
-                <option value="weeks">Weeks</option>
-                <option value="months">Months</option>
-              </select>
-              <div className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2 text-[var(--color-darkgreen)]">
-                ⌄
-              </div>
+          {/* Watering Amount*/}
+          <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
+            <div className="text-h3 pb-2">Watering Amount</div>
+            <div className="flex flex-wrap gap-2">
+              {thirstLevelOptions.map((option) => (
+                <Pill
+                  key={option}
+                  label={option}
+                  selected={thirstLevel === option}
+                  onClick={() => setThirstLevel(option)}
+                  variant="select"
+                />
+              ))}
             </div>
           </div>
-        </div>
-
-        {/* Watering Amount*/}
-        <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
-          <div className="text-h3 pb-2">Watering Amount</div>
-          <div className="flex flex-wrap gap-2">
-            {thirstLevelOptions.map((option) => (
-              <Pill
-                key={option}
-                label={option}
-                selected={thirstLevel === option}
-                onClick={() => setThirstLevel(option)}
-                variant="select"
-              />
-            ))}
+          {/* Care Tips */}
+          <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
+            <div className="text-h3 pb-2">Care Tips</div>
+            <textarea
+              type="text"
+              value={careTips}
+              onChange={(e) => setCareTips(e.target.value)}
+              placeholder="e.g., Euphorbia leuconeura"
+              className="bg-white flex w-full p-3 rounded-sm text-placeholder"
+            ></textarea>
           </div>
-        </div>
-        {/* Care Tips */}
-        <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
-          <div className="text-h3 pb-2">Care Tips</div>
-          <input
-            type="text"
-            value={careTips}
-            onChange={(e) => setCareTips(e.target.value)}
-            placeholder="e.g., Euphorbia leuconeura"
-            className="bg-white flex w-full p-3 rounded-sm text-placeholder"
-          ></input>
-        </div>
 
-        {/* Image */}
-        <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
-          <div className="flex flex-row justify-between items-star">
-            <div className="text-h3 pb-2">Image</div>
-            <ButtonNarrow text="Add Room" />
+          {/* Image */}
+          <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
+            <div className="flex flex-row justify-between items-star">
+              <div className="text-h3 pb-2">Image</div>
+              <ButtonNarrow text="Add Room" />
+            </div>
           </div>
+        </form>
+        <div className="my-4">
+          <Button width="full" text="Add a new Plant"/>
         </div>
-      </form>
+      </div>
     </div>
   );
 }
