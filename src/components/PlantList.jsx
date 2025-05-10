@@ -4,11 +4,17 @@ import { PlantCard } from "./PlantCard";
 export function PlantList() {
   const [plants, setPlants] = useState([]);
 
-  useEffect(() => {
-    fetch("https://plantpal-backend-9iz1.onrender.com/plants")
+  const fetchPlants = () => {
+    fetch("https://plantpal-backend-9iz1.onrender.com/plants", {
+      cache: "no-store", // ✅ this disables browser + server-side caching
+    })
       .then((res) => res.json())
       .then((data) => setPlants(data))
       .catch((err) => console.error("Failed to fetch plants:", err));
+  };
+
+  useEffect(() => {
+    fetchPlants();
   }, []);
 
   return (
@@ -20,16 +26,17 @@ export function PlantList() {
     lg:grid-cols-[repeat(auto-fit,minmax(360px,1fr))]
   "
     >
-      {" "}
       {plants.map((plant) => (
         <PlantCard
           key={plant.id}
           name={plant.name}
-          image={plant.photo} // ✅ fix
+          id={plant.id}
+          image={plant.photo}
           room={plant.room}
-          wateringFrequencyDays={plant.wateringFrequencyDays} // ✅ fix
-          lastWatered={plant.lastWatered} // ✅ fix
+          wateringFrequencyDays={plant.wateringFrequencyDays}
           thirstLevel={plant.thirstLevel}
+          onWatered={fetchPlants}
+          lastWatered={plant.lastWatered}
         />
       ))}
     </div>

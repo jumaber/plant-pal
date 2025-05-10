@@ -12,8 +12,10 @@ export function ButtonNarrow({
     <Link
       to={to}
       className={`flex ${width} max-w-fit justify-center radius-rounded text-center ${textColor} text-h4 font-body ${bgColor} text-lg py-2 ${paddingx}`}
-    >
       {text}
     </Link>
   );
 }
+
+// Use Button like this: 
+// <Button text="Add Plant" bgColor="bg-[var(--color-darkgreen)]" textColor="text-highlightgreen" width="max-w-fit" paddingx="px-4" />
