@@ -49,7 +49,7 @@ export function PlantDetailPage() {
             <div>
               {/* TÍTULO */}
               <div className="flex flex-row justify-between items-center lg:pb-6 ">
-                <div className="py-10 lg:py-0 lg:pt-0 text-h2 font-bold text-[var(--color-darkgreen)]">
+                <div className="py-10 lg:py-0 lg:pt-0 text-h1 font-bold text-[var(--color-darkgreen)]">
                   {plant.name}
                 </div>
                 <ButtonCircle bgColor="bg-white" />
