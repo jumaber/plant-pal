@@ -31,7 +31,6 @@ export function PlantList() {
           key={plant.id}
           id={plant.id}
           name={plant.name}
-          id={plant.id}
           image={plant.photo}
           room={plant.room}
           wateringFrequencyDays={plant.wateringFrequencyDays}
