@@ -9,7 +9,7 @@ export function ButtonCircle({
   return (
     <button
       onClick={() => setClicked((prev) => !prev)}
-      className={`flex w-14 h-14 justify-center items-center radius-circular text-center text-h3 font-bold py-[10px] ${
+      className={`flex min-w-14 min-h-14 justify-center items-center radius-circular text-center text-h3 font-bold py-[10px] ${
         clicked ? "bg-[var(--color-lightgreen)]" : bgColor
       }`}
     >
