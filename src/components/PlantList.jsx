@@ -6,10 +6,10 @@ export function PlantList() {
 
   const fetchPlants = () => {
     fetch("https://plantpal-backend-9iz1.onrender.com/plants", {
-      cache: "no-store", // ✅ this disables browser + server-side caching
+      cache: "no-store",
     })
       .then((res) => res.json())
-      .then((data) => setPlants(data))
+      .then((data) => setPlants(data.reverse()))
       .catch((err) => console.error("Failed to fetch plants:", err));
   };
 

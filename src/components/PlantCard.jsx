@@ -21,7 +21,7 @@ export function PlantCard({
   const daysSinceWatered = Math.floor(
     (today - lastWateredDate) / (1000 * 60 * 60 * 24)
   ); // Calculates the number of full days since last watering.
-  const daysLeft = Math.max(wateringFrequencyDays - daysSinceWatered, 0); // Remaining days until next watering.
+  const daysLeft = wateringFrequencyDays - daysSinceWatered; // Remaining days until next watering.
 
   const [previousLastWatered, setPreviousLastWatered] = useState(null); // Temporarily stores last value for undo
 
