@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../components/Button";
 import close from "../assets/close.svg";
 import { Pill } from "../components/Pill";
+import { SubmitStatus } from "../components/SubmissionStatus";
 
 export function AddPlantPage() {
   const [name, setName] = useState("");
@@ -15,6 +17,8 @@ export function AddPlantPage() {
   const [thirstLevel, setThirstLevel] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -62,6 +66,7 @@ export function AddPlantPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     let uploadedImageUrl = "";
     if (imageFile) {
@@ -101,6 +106,8 @@ export function AddPlantPage() {
     } catch (error) {
       console.error("Error saving plant:", error);
       alert("Oops! Something went wrong while saving your plant.");
+    } finally {
+        setIsSubmitting(false);
     }
   };
 
@@ -116,6 +123,11 @@ export function AddPlantPage() {
             onClick={() => navigate("/")}
           />
         </div>
+
+        {isSubmitting && (
+          <SubmitStatus status="loading" message="Adding your plant..." />
+        )}
+
         <form onSubmit={handleSubmit}>
           {/* Common Name */}
           <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
@@ -282,12 +294,14 @@ export function AddPlantPage() {
 
           {/* Submit Button */}
           <div className="my-4">
-            <button
+            <Button
               type="submit"
               className="w-full bg-green-600 text-white py-3 rounded"
+              width="w-full"
+              disabled={isSubmitting}
             >
               Add a new Plant
-            </button>
+            </Button>
           </div>
         </form>
       </div>
