@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import close from "../assets/close.svg";
-import { ButtonNarrow } from "../components/ButtonNarrow";
-import { Button } from "../components/Button";
 import { Pill } from "../components/Pill";
 
 export function AddPlantPage() {
@@ -33,7 +31,11 @@ export function AddPlantPage() {
 
   const locationOptions = ["Indoor", "Outdoor", "Indoor & Outdoor"];
 
-  const thirstLevelOptions = ["💧 Light", "💧💧 Moderate ", "💧💧💧 Generous"];
+  const thirstLevelOptions = [
+    "\uD83D\uDCA7 Light",
+    "\uD83D\uDCA7\uD83D\uDCA7 Moderate ",
+    "\uD83D\uDCA7\uD83D\uDCA7\uD83D\uDCA7 Generous",
+  ];
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -44,7 +46,7 @@ export function AddPlantPage() {
   const uploadImageToCloudinary = async (file) => {
     const data = new FormData();
     data.append("file", file);
-    data.append("upload_preset", "plants");
+    data.append("upload_preset", "plantpal_uploads");
 
     const response = await fetch(
       "https://api.cloudinary.com/v1_1/jumaber/image/upload",
@@ -79,8 +81,6 @@ export function AddPlantPage() {
       photo: uploadedImageUrl,
     };
 
-    console.log("Sending this plant:", newPlant);
-
     try {
       const response = await fetch(
         "https://plantpal-backend-9iz1.onrender.com/plants",
@@ -93,9 +93,6 @@ export function AddPlantPage() {
         }
       );
 
-      const text = await response.text(); 
-      console.log("Raw response text:", text);
-
       if (!response.ok) {
         throw new Error("Failed to save plant to server");
       }
@@ -106,9 +103,6 @@ export function AddPlantPage() {
       alert("Oops! Something went wrong while saving your plant.");
     }
   };
-
-
-
 
   return (
     <div className="flex justify-center p-4 md:p-8 lg:p-20 lg:px-20">
@@ -219,7 +213,7 @@ export function AddPlantPage() {
                   ))}
                 </select>
                 <div className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2 text-[var(--color-darkgreen)]">
-                  ⌄
+                  ⌯
                 </div>
               </div>
               <div className="relative w-1/2">
@@ -233,7 +227,7 @@ export function AddPlantPage() {
                   <option value="months">Month(s)</option>
                 </select>
                 <div className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2 text-[var(--color-darkgreen)]">
-                  ⌄
+                  ⌯
                 </div>
               </div>
             </div>
