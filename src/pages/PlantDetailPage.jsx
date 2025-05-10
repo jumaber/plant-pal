@@ -1,11 +1,13 @@
 import { useParams } from "react-router-dom";
 
 export function PlantDetailPage() {
+  const { id } = useParams();
 
-    const { id } = useParams();
-    
   return (
-    <div>
+    <div className="bg-[var(--color-background)] p-4 md:px-8 lg:px-20 min-h-screen">
+      <NavBar />
+      <div className="text-h1">My Plants</div>
+
       <ButtonBack />
 
       <div className="flex flex-col lg:flex-row gap-8 relative">
