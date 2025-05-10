@@ -17,3 +17,6 @@ export function ButtonNarrow({
     </Link>
   );
 }
+
+// Use Button like this: 
+// <Button text="Add Plant" bgColor="bg-[var(--color-darkgreen)]" textColor="text-highlightgreen" width="max-w-fit" paddingx="px-4" />

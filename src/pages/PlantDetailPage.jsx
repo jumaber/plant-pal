@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { NavBar } from "../components/Navbar";
-import { Button } from "../components/Button";
 import { ButtonBack } from "../components/Button_Back";
-import { ButtonNarrow } from "../components/Button_Narrow";
+import { ButtonNarrow } from "../components/ButtonNarrow";
 import { WateringBar } from "../components/WateringBar";
 import { ButtonCircle } from "../components/Button_Circle";
 
@@ -33,11 +32,13 @@ export function PlantDetailPage() {
       <NavBar />
 
       <div className="flex flex-col min-h-screen bg-[var(--color-background)] px-4 py-20 lg:py–30 md:px-8 lg:px-20">
-        <ButtonBack />
+        <div className="md:py-2 lg:py-4">
+          <ButtonBack />
+        </div>
         <div className="flex flex-col lg:flex-row lg:gap-8 justify-between">
           {/* IMAGEM */}
           <div className="w-full lg:w-1/2 lg:h-fit bg-white rounded-md shadow-md p-4 flex justify-center items-center">
-            <i
+            <img
               className="bg-gray-200 w-full aspect-square object-cover radius-square"
               src={plant.photo}
               alt={plant.name}
@@ -48,19 +49,19 @@ export function PlantDetailPage() {
             <div>
               {/* TÍTULO */}
               <div className="flex flex-row justify-between items-center lg:pb-6 ">
-                <h1 className="py-10 lg:py-0 lg:pt-0 text-h2 font-bold text-[var(--color-darkgreen)]">
+                <div className="py-10 lg:py-0 lg:pt-0 text-h2 font-bold text-[var(--color-darkgreen)]">
                   {plant.name}
-                </h1>
+                </div>
                 <ButtonCircle bgColor="bg-white" />
               </div>
 
               {/* TEXTO */}
-              <div className="flex flex-col gap-4 w-full bg-white p-4 radius-square relative">
+              <div className="flex flex-col gap-4 w-full bg-white p-4 radius-square">
                 <div className="flex flex-row justify-between items-center">
                   <h2 className="min-w-fit text-h5 text-[var(--color-grey)]">
                     Scientific Name
                   </h2>
-                  <p className="text-[var(--color-darkgreen)] font-medium">
+                  <p className="text-[var(--color-darkgreen)] text-right">
                     {plant.scientificName}
                   </p>
                 </div>
@@ -71,7 +72,7 @@ export function PlantDetailPage() {
                   <h2 className="min-w-fit text-h5 text-[var(--color-grey)]">
                     Location
                   </h2>
-                  <p className="text-[var(--color-darkgreen)] font-medium">
+                  <p className="text-[var(--color-darkgreen)] font-medium  text-right">
                     {plant.location}, {plant.room}
                   </p>
                 </div>
