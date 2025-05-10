@@ -40,7 +40,7 @@ export function AddPlantPage() {
   // const handleSubmit {}
 
   return (
-    <div className="flex justify-center px-4 py-24 lg:py-30 md:px-8 lg:px-20">
+    <div className="flex justify-center p-4 md:p-8 lg:p-20 lg:px-20">
       <div className="flex flex-col w-full  max-w-4xl justify-center">
         <div className="flex flex-row w-full justify-between">
           <h1 className="text-h1">Add Plant</h1>
@@ -56,7 +56,9 @@ export function AddPlantPage() {
 
         {/* Common Name */}
           <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
-            <div className="text-h3 pb-2">Common Name</div>
+            <div className="text-h3 pb-2 text-bg-[var(--color-darkgreen)]">
+              Common Name
+            </div>
             <input
               type="text"
               value={name}
@@ -68,7 +70,9 @@ export function AddPlantPage() {
 
           {/* Scientific Name */}
           <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
-            <div className="text-h3 pb-2">Scientific Name</div>
+            <div className="text-h3 pb-2 text-bg-[var(--color-darkgreen)]">
+              Scientific Name
+            </div>
             <input
               type="text"
               value={scientificName}
@@ -80,7 +84,9 @@ export function AddPlantPage() {
 
           {/* Location */}
           <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
-            <div className="text-h3 pb-2">Location</div>
+            <div className="text-h3 pb-2 text-bg-[var(--color-darkgreen)]">
+              Location
+            </div>
             <div className="flex flex-wrap gap-2">
               {locationOptions.map((option) => (
                 <Pill
@@ -96,7 +102,9 @@ export function AddPlantPage() {
 
           {/* Room */}
           <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
-            <div className="text-h3 pb-2">Room</div>
+            <div className="text-h3 pb-2 text-bg-[var(--color-darkgreen)]">
+              Room
+            </div>
             <div className="flex flex-wrap gap-2">
               {roomOptions.map((option) => (
                 <Pill
@@ -112,7 +120,9 @@ export function AddPlantPage() {
 
           {/* Last Watered On */}
           <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
-            <div className="text-h3 pb-2">Last Watered On...</div>
+            <div className="text-h3 pb-2 text-bg-[var(--color-darkgreen)]">
+              Last Watered On...
+            </div>
             <input
               type="date"
               value={lastWatered}
@@ -123,7 +133,9 @@ export function AddPlantPage() {
 
           {/* Watering Frequency*/}
           <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
-            <div className="text-h3 pb-2">Watering Frequency</div>
+            <div className="text-h3 pb-2 text-bg-[var(--color-darkgreen)]">
+              Watering Frequency
+            </div>
 
             {/* Winter */}
             <div className="flex flex-row w-full items-center gap-2 md:gap-4">
@@ -156,9 +168,9 @@ export function AddPlantPage() {
                   onChange={(e) => setWateringUnit(e.target.value)}
                   className="bg-white appearance-none p-4 pr-10 w-full rounded-sm text-paragraph text-[var(--color-darkgreen)]"
                 >
-                  <option value="days">Days</option>
-                  <option value="weeks">Weeks</option>
-                  <option value="months">Months</option>
+                  <option value="days">Day(s)</option>
+                  <option value="weeks">Week(s)</option>
+                  <option value="months">Month(s)</option>
                 </select>
                 <div className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2 text-[var(--color-darkgreen)]">
                   ⌄
@@ -169,7 +181,9 @@ export function AddPlantPage() {
 
           {/* Watering Amount*/}
           <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
-            <div className="text-h3 pb-2">Watering Amount</div>
+            <div className="text-h3 pb-2 text-bg-[var(--color-darkgreen)]">
+              Watering Amount
+            </div>
             <div className="flex flex-wrap gap-2">
               {thirstLevelOptions.map((option) => (
                 <Pill
@@ -184,7 +198,9 @@ export function AddPlantPage() {
           </div>
           {/* Care Tips */}
           <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
-            <div className="text-h3 pb-2">Care Tips</div>
+            <div className="text-h3 pb-2 text-bg-[var(--color-darkgreen)]">
+              Care Tips
+            </div>
             <textarea
               type="text"
               value={careTips}
@@ -197,13 +213,15 @@ export function AddPlantPage() {
           {/* Image */}
           <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
             <div className="flex flex-row justify-between items-star">
-              <div className="text-h3 pb-2">Image</div>
+              <div className="text-h3 pb-2 text-bg-[var(--color-darkgreen)]">
+                Image
+              </div>
               <ButtonNarrow text="Add Room" />
             </div>
           </div>
         </form>
         <div className="my-4">
-          <Button width="full" text="Add a new Plant"/>
+          <Button width="full" text="Add a new Plant" />
         </div>
       </div>
     </div>
