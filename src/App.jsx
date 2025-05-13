@@ -13,6 +13,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/add" element={<AddPlantPage />} />
         <Route path="/plant/:id" element={<PlantDetailPage />} />
+        <Route path="/edit/:id" element={<AddPlantPage />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </>
