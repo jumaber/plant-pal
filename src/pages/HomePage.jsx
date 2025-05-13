@@ -7,6 +7,7 @@ export function HomePage() {
   const [plants, setPlants] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState("all");
 
+  // Fetch all plants from the backend
   const fetchPlants = () => {
     fetch("https://plantpal-backend-9iz1.onrender.com/plants", {
       cache: "no-store",
@@ -17,22 +18,28 @@ export function HomePage() {
   };
 
   useEffect(() => {
-    fetchPlants();
+    fetchPlants(); // Load plants when component mounts
   }, []);
 
-  // Calcular contagens por room
+  // Count plants per room and plants that need water (daysLeft === 0)
   const plantCounts = plants.reduce(
     (acc, plant) => {
       const room = plant.room || "Unknown";
       acc[room] = (acc[room] || 0) + 1;
 
-      if (
-        plant.thirstLevel === "high" || 
-        plant.thirstLevel === "medium" // opcional, depende da tua lógica
-      ) {
+      const today = new Date();
+      const lastWateredDate = new Date(plant.lastWatered);
+      const daysSinceWatered = Math.floor(
+        (today - lastWateredDate) / (1000 * 60 * 60 * 24)
+      );
+      const daysLeft = Math.max(plant.wateringFrequencyDays - daysSinceWatered, 0);
+
+      // Count plants that need water today
+      if (daysLeft === 0) {
         acc["thirsty"] = (acc["thirsty"] || 0) + 1;
       }
 
+      // Count all plants
       acc["all"] = (acc["all"] || 0) + 1;
 
       return acc;
@@ -40,15 +47,20 @@ export function HomePage() {
     { all: 0, thirsty: 0 }
   );
 
-  // Filtrar as plantas para mostrar
+  // Filter plants based on selected filter (room or thirsty)
   const filteredPlants = plants.filter((plant) => {
     if (selectedFilter === "all") return true;
+
     if (selectedFilter === "thirsty") {
-      return (
-        plant.thirstLevel === "high" || 
-        plant.thirstLevel === "medium" // depende da tua definição de sede
+      const today = new Date();
+      const lastWateredDate = new Date(plant.lastWatered);
+      const daysSinceWatered = Math.floor(
+        (today - lastWateredDate) / (1000 * 60 * 60 * 24)
       );
+      const daysLeft = Math.max(plant.wateringFrequencyDays - daysSinceWatered, 0);
+      return daysLeft === 0;
     }
+
     return plant.room === selectedFilter;
   });
 
