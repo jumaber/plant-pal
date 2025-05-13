@@ -1,21 +1,5 @@
 import { PlantCard } from "./PlantCard";
-
-export function PlantList() {
-  const [plants, setPlants] = useState([]);
-
-  const fetchPlants = () => {
-    fetch("https://plantpal-backend-9iz1.onrender.com/plants", {
-      cache: "no-store",
-    })
-      .then((res) => res.json())
-      .then((data) => setPlants(data.reverse()))
-      .catch((err) => console.error("Failed to fetch plants:", err));
-  };
-
-  useEffect(() => {
-    fetchPlants();
-  }, []);
-
+export function PlantList({ plants, fetchPlants }) {
   return (
     <div
       className="

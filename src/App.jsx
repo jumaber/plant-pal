@@ -4,7 +4,6 @@ import { AddPlantPage } from './pages/AddPlantPage'
 import { PlantDetailPage } from './pages/PlantDetailPage'
 import { Routes, Route } from 'react-router-dom'
 import { PageNotFound } from './pages/PageNotFound'
-import { PageNotFound } from './pages/PageNotFound'
 
 function App() {
 
