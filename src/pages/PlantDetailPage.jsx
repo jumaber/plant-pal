@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { NavBar } from "../components/Navbar";
 import { ButtonBack } from "../components/Button_Back";
 import { ButtonNarrow } from "../components/ButtonNarrow";
@@ -9,6 +9,9 @@ import { ButtonCircle } from "../components/Button_Circle";
 export function PlantDetailPage() {
   const { id } = useParams();
   const [plant, setPlant] = useState(null);
+  const navigate = useNavigate();
+
+
 
   useEffect(() => {
     fetch(`https://plantpal-backend-9iz1.onrender.com/plants/${id}`)
@@ -27,6 +30,27 @@ export function PlantDetailPage() {
     (today - lastWateredDate) / (1000 * 60 * 60 * 24)
   );
   const daysLeft = Math.max(plant.wateringFrequencyDays - daysSinceWatered, 0);
+
+  const deletePlant = async () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this plant?");
+    if(!confirmDelete) return;
+
+    try {
+      const response = await fetch(`https://plantpal-backend-9iz1.onrender.com/plants/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete plant");
+      }
+      alert("Plant deleted successfully.")
+      navigate("/");
+    } catch (error) {
+      console.error("Error deleting plant:", error);
+      alert("Something went wrong while deleting the plant.")
+    }
+  };
+
   return (
     <>
       <NavBar />
@@ -117,6 +141,7 @@ export function PlantDetailPage() {
                   textColor="text-[var(--color-darkgreen)]"
                   width="max-w-fit"
                   paddingx="px-6"
+                  onClick={() => deletePlant(plant.id)}
                 />
                 <ButtonNarrow
                   text="Edit"
@@ -124,6 +149,7 @@ export function PlantDetailPage() {
                   textColor="text-[var(--color-darkgreen)]"
                   width="max-w-fit"
                   paddingx="px-6"
+                  onClick={() => navigate(`/edit/${plant.id}`)}
                 />
               </div>
             </div>
