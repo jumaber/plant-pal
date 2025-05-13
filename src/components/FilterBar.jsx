@@ -30,11 +30,17 @@ export function FilterBar({ selectedFilter, onFilterChange, plantCounts = {} }) 
           <button
             key={filter.value}
             onClick={() => onFilterChange(filter.value)}
-            className={`px-4 py-2 rounded-md border text-sm font-medium transition-all duration-200
-              ${isActive ? "bg-[#002D25] text-white border-[#002D25]" : "bg-white text-[#002D25] border-[#002D25]"}`}
+            className={`px-4 py-2 rounded-md border transition-all duration-200
+              ${
+                isActive
+                  ? "bg-[#002D25] text-white border-none text-tag-selected"
+                  : "bg-white text-[#002D25] border-[#002D25] text-tag"
+              }`}
           >
             {filter.label}{" "}
-            {filter.showCount && count > 0 && <span className="text-xs font-normal">({count})</span>}
+            {filter.showCount && count > 0 && (
+              <span className="text-tag">({count})</span>
+            )}
           </button>
         );
       })}
