@@ -9,7 +9,7 @@ export function PlantList({ plants, fetchPlants }) {
     lg:grid-cols-[repeat(auto-fit,minmax(360px,1fr))]
   "
     >
-      {plants.map((plant) => (
+      {[...plants].reverse().map((plant) => (
         <PlantCard
           key={plant.id}
           id={plant.id}
