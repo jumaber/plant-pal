@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
-import { ButtonNarrow } from "../components/ButtonNarrow"
 import close from "../assets/close.svg";
 import { Pill } from "../components/Pill";
 import { SubmitStatus } from "../components/SubmissionStatus";
@@ -19,9 +19,6 @@ export function AddPlantPage() {
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-
-  const navigate = useNavigate();
 
   const roomOptions = [
     "Kitchen Window",
@@ -42,6 +39,31 @@ export function AddPlantPage() {
     "\uD83D\uDCA7\uD83D\uDCA7\uD83D\uDCA7 Generous",
   ];
 
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (!id) return;
+    fetch(`https://plantpal-backend-9iz1.onrender.com/plants/${id}`)
+    .then((res) => res.json())
+    .then((data) => {
+      setName(data.name || "");
+        setScientificName(data.scientificName || "");
+        setLocation(data.location || "");
+        setRoom(data.room || "");
+        setLastWatered(data.lastWatered || "");
+        setWateringFrequencyDays(data.wateringFrequencyDays || "");
+        setWateringUnit(data.wateringUnit || "days");
+        setThirstLevel(data.thirstLevel || "");
+        setCareTips(data.careTips || "");
+        setImagePreview(data.photo || null);
+    })
+    .catch((err) => {
+      console.error("Failed to load plant data:", err);
+      alert("Failed to load plant data.");
+    });
+  }, [id]);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImageFile(file);
@@ -53,6 +75,7 @@ export function AddPlantPage() {
     data.append("file", file);
     data.append("upload_preset", "plantpal_uploads");
 
+  
     const response = await fetch(
       "https://api.cloudinary.com/v1_1/jumaber/image/upload",
       {
@@ -68,6 +91,11 @@ export function AddPlantPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    const method = id ? "PUT" : "POST";
+    const url = id
+      ? `https://plantpal-backend-9iz1.onrender.com/plants/${id}`
+      : `https://plantpal-backend-9iz1.onrender.com/plants`;
 
     let uploadedImageUrl = "";
     if (imageFile) {
@@ -89,15 +117,14 @@ export function AddPlantPage() {
 
     try {
       const response = await fetch(
-        "https://plantpal-backend-9iz1.onrender.com/plants",
+        url,
         {
-          method: "POST",
+          method,
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type" : "application/json",
           },
           body: JSON.stringify(newPlant),
-        }
-      );
+        });
 
       if (!response.ok) {
         throw new Error("Failed to save plant to server");
@@ -116,7 +143,7 @@ export function AddPlantPage() {
     <div className="flex justify-center p-4 md:p-8 lg:p-20 lg:px-20">
       <div className="flex flex-col w-full max-w-4xl justify-center">
         <div className="flex flex-row w-full justify-between">
-          <h1 className="text-h1">Add Plant</h1>
+          <h1 className="text-h1">{id ? "Edit Plant" : "Add Plant"}</h1>
           <img
             src={close}
             alt="Close icon"
@@ -126,8 +153,8 @@ export function AddPlantPage() {
         </div>
 
         {isSubmitting && (
-          <SubmitStatus status="loading" message="Adding your plant..." />
-        )}
+          <SubmitStatus status="loading" message={id ? "Saving changes..." : "Adding your plant..."} />
+          )}
 
         <form onSubmit={handleSubmit}>
           {/* Common Name */}
@@ -281,7 +308,7 @@ export function AddPlantPage() {
           {/* Image Upload */}
           <div className="bg-[var(--color-background)] md:p-4 mt-6 rounded-sm">
             <div className="flex flex-row gap-4 justify-between items-center">
-              <div className="text-h3 text-[var(--color-darkgreen)] mb-2">
+              <div className="text-h3 text-[var(--color-darkgreen)]">
                 Image
               </div>
               <label className="inline-block">
@@ -320,7 +347,7 @@ export function AddPlantPage() {
               width="w-full"
               disabled={isSubmitting}
             >
-              Add a new Plant
+              {id ? "Save Change" : "Add a new Plant"}
             </Button>
           </div>
         </form>

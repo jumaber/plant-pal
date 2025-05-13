@@ -141,7 +141,7 @@ export function PlantDetailPage() {
                   textColor="text-[var(--color-darkgreen)]"
                   width="max-w-fit"
                   paddingx="px-6"
-                  onClick={ () => deletePlant(plant.id)}
+                  onClick={() => deletePlant(plant.id)}
                 />
                 <ButtonNarrow
                   text="Edit"
@@ -149,6 +149,7 @@ export function PlantDetailPage() {
                   textColor="text-[var(--color-darkgreen)]"
                   width="max-w-fit"
                   paddingx="px-6"
+                  onClick={() => navigate(`/edit/${plant.id}`)}
                 />
               </div>
             </div>
