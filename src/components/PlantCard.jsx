@@ -13,7 +13,10 @@ export function PlantCard({
   thirstLevel = 2,
   onWatered,
 }) {
-  const waterAmount = "💧".repeat(thirstLevel); // Creates a string with 💧 repeated based on thirstLevel.
+  const waterAmount =
+    typeof thirstLevel === "string"
+      ? (thirstLevel.match(/💧/g) || []).join("")
+      : "💧".repeat(thirstLevel || 0); // Creates a string with 💧 repeated based on thirstLevel.
 
   // Calculate days left until next watering
   const today = new Date(); // Gets the current date.
