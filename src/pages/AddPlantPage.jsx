@@ -99,7 +99,7 @@ export function AddPlantPage() {
       ? `https://plantpal-backend-9iz1.onrender.com/plants/${id}`
       : `https://plantpal-backend-9iz1.onrender.com/plants`;
 
-    let uploadedImageUrl = "";
+    let uploadedImageUrl = "imagePreview";
     if (imageFile) {
       uploadedImageUrl = await uploadImageToCloudinary(imageFile);
     }
@@ -114,7 +114,7 @@ export function AddPlantPage() {
       wateringUnit,
       thirstLevel,
       careTips,
-      photo: uploadedImageUrl,
+      photo: uploadedImageUrl || imagePreview,
     };
 
     try {
