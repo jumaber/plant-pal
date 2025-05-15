@@ -1,13 +1,13 @@
 import { PlantCard } from "./PlantCard";
-export function PlantList({ plants, fetchPlants, selectedFilter }) {
+export function PlantList({ plants, fetchPlants }) {
   return (
     <div
       className="
-    grid gap-6 w-full
-    grid-cols-[repeat(auto-fit,minmax(260px,1fr))]
-    md:grid-cols-[repeat(auto-fit,minmax(320px,1fr))]
-    lg:grid-cols-[repeat(auto-fit,minmax(360px,1fr))]
-  "
+          grid gap-6 w-full max-w-screen
+          grid-cols-[repeat(auto-fill,minmax(280px,1fr))]
+          md:grid-cols-[repeat(auto-fill,minmax(300px,1fr))]
+          lg:grid-cols-[repeat(auto-fill,minmax(360px,1fr))]
+        "
     >
       {[...plants].reverse().map((plant) => (
         <PlantCard
@@ -20,7 +20,6 @@ export function PlantList({ plants, fetchPlants, selectedFilter }) {
           thirstLevel={plant.thirstLevel}
           onWatered={fetchPlants}
           lastWatered={plant.lastWatered}
-          selectedFilter={selectedFilter}
         />
       ))}
     </div>
