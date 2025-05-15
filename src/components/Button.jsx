@@ -7,7 +7,7 @@ export function Button({
   textColor = "text-darkgreen",
   width = "max-w-fit",
   paddingx = "px-4",
-  type = "button", // can be "submit"
+  type = "button",
   onClick,
   disabled = false,
 }) {
