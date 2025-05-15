@@ -9,14 +9,23 @@ import { ButtonCircle } from "../components/Button_Circle";
 export function PlantDetailPage() {
   const { id } = useParams();
   const [plant, setPlant] = useState(null);
+  const [clicked, setClicked] = useState(false); // Local toggle state for watering button
+  const [originalLastWatered, setOriginalLastWatered] = useState(null); // To revert watering date if toggled off
   const navigate = useNavigate();
 
-
-
   useEffect(() => {
+    // Fetch plant data from backend by id
     fetch(`https://plantpal-backend-9iz1.onrender.com/plants/${id}`)
       .then((res) => res.json())
-      .then((data) => setPlant(data))
+      .then((data) => {
+        setPlant(data);
+        setOriginalLastWatered(data.lastWatered);
+
+        // Initialize 'clicked' as true if plant was watered today
+        const lastWateredDate = new Date(data.lastWatered);
+        const today = new Date();
+        setClicked(lastWateredDate.toDateString() === today.toDateString());
+      })
       .catch((err) => console.error("Failed to fetch plant:", err));
   }, [id]);
 
@@ -24,6 +33,7 @@ export function PlantDetailPage() {
 
   const waterAmount = "💧".repeat(plant.thirstLevel ?? 0);
 
+  // Calculate days since last watering and how many days left before next watering
   const today = new Date();
   const lastWateredDate = new Date(plant.lastWatered);
   const daysSinceWatered = Math.floor(
@@ -31,6 +41,7 @@ export function PlantDetailPage() {
   );
   const daysLeft = Math.max(plant.wateringFrequencyDays - daysSinceWatered, 0);
 
+  // Delete plant handler with confirmation
   const deletePlant = async () => {
     const confirmDelete = window.confirm("Are you sure you want to delete this plant?");
     if(!confirmDelete) return;
@@ -43,11 +54,41 @@ export function PlantDetailPage() {
       if (!response.ok) {
         throw new Error("Failed to delete plant");
       }
-      alert("Plant deleted successfully.")
+      alert("Plant deleted successfully.");
       navigate("/");
     } catch (error) {
       console.error("Error deleting plant:", error);
-      alert("Something went wrong while deleting the plant.")
+      alert("Something went wrong while deleting the plant.");
+    }
+  };
+
+  // Toggle watering state and update backend accordingly
+  const handleWaterToggle = async () => {
+    const newClicked = !clicked;
+    setClicked(newClicked);
+
+    // If toggled on, set lastWatered to now; if toggled off, revert to original date
+    const newLastWatered = newClicked ? new Date().toISOString() : originalLastWatered;
+
+    try {
+      const response = await fetch(`https://plantpal-backend-9iz1.onrender.com/plants/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ lastWatered: newLastWatered }),
+      });
+
+      if (!response.ok) throw new Error("Failed to update watering");
+
+      // Update local plant state immediately to reflect changes in UI
+      setPlant((prev) => ({
+        ...prev,
+        lastWatered: newLastWatered,
+      }));
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao atualizar a rega.");
+      // Revert toggle state if API update fails
+      setClicked(!newClicked);
     }
   };
 
@@ -60,7 +101,7 @@ export function PlantDetailPage() {
           <ButtonBack />
         </div>
         <div className="flex flex-col lg:flex-row lg:gap-8 justify-between">
-          {/* IMAGEM */}
+          {/* IMAGE */}
           <div className="w-full lg:w-1/2 lg:h-fit bg-white rounded-md shadow-md p-4 flex justify-center items-center">
             <img
               className="bg-gray-200 w-full aspect-square object-cover radius-square"
@@ -71,15 +112,19 @@ export function PlantDetailPage() {
 
           <div className="flex flex-col lg:justify-between w-full lg:w-1/2">
             <div>
-              {/* TÍTULO */}
+              {/* TITLE AND WATER BUTTON */}
               <div className="flex flex-row justify-between items-center lg:pb-6 ">
                 <div className="py-10 lg:py-0 lg:pt-0 text-h1 font-bold text-[var(--color-darkgreen)]">
                   {plant.name}
                 </div>
-                <ButtonCircle bgColor="bg-white" />
+                <ButtonCircle
+                  bgColor="bg-white"
+                  onClick={handleWaterToggle} // Toggle watering status
+                  text={clicked ? "✅" : "💦"}
+                />
               </div>
 
-              {/* TEXTO */}
+              {/* PLANT DETAILS */}
               <div className="flex flex-col gap-4 w-full bg-white p-4 radius-square">
                 <div className="flex flex-row justify-between items-center">
                   <h2 className="min-w-fit text-h5 text-[var(--color-grey)]">
@@ -132,7 +177,7 @@ export function PlantDetailPage() {
               </div>
             </div>
 
-            {/* BOTÕES (abaixo da caixa de texto) */}
+            {/* DELETE AND EDIT BUTTONS */}
             <div className="flex justify-end mt-6 gap-4">
               <div className="flex flex-row">
                 <ButtonNarrow
@@ -149,8 +194,7 @@ export function PlantDetailPage() {
                   textColor="text-[var(--color-darkgreen)]"
                   width="max-w-fit"
                   paddingx="px-6"
-                  onClick={() => navigate(`/edit/${plant.id}?filter=${plant.room || "all"}`)}
-
+                  onClick={() => navigate(`/edit/${plant.id}`)}
                 />
               </div>
             </div>
