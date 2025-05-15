@@ -1,5 +1,5 @@
 import { PlantCard } from "./PlantCard";
-export function PlantList({ plants, fetchPlants }) {
+export function PlantList({ plants, fetchPlants, selectedFilter }) {
   return (
     <div
       className="
@@ -20,6 +20,7 @@ export function PlantList({ plants, fetchPlants }) {
           thirstLevel={plant.thirstLevel}
           onWatered={fetchPlants}
           lastWatered={plant.lastWatered}
+          selectedFilter={selectedFilter}
         />
       ))}
     </div>

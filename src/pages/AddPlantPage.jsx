@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "../components/Button";
 import close from "../assets/close.svg";
 import { Pill } from "../components/Pill";
@@ -27,6 +26,7 @@ export function AddPlantPage() {
     "Corridor",
     "Balcony",
     "Parents Room",
+    "Floor",
     "Marius Room",
     "Caterina Room",
   ];
@@ -41,6 +41,9 @@ export function AddPlantPage() {
 
   const navigate = useNavigate();
   const { id } = useParams();
+  const locationData = useLocation();
+  const searchParams = new URLSearchParams(locationData.search);
+  const previousFilter = searchParams.get("filter")
 
   useEffect(() => {
     if (!id) return;
@@ -75,7 +78,6 @@ export function AddPlantPage() {
     data.append("file", file);
     data.append("upload_preset", "plantpal_uploads");
 
-  
     const response = await fetch(
       "https://api.cloudinary.com/v1_1/jumaber/image/upload",
       {
@@ -130,7 +132,7 @@ export function AddPlantPage() {
         throw new Error("Failed to save plant to server");
       }
 
-      navigate("/");
+      navigate(`/?filter=${previousFilter || "all"}`);
     } catch (error) {
       console.error("Error saving plant:", error);
       alert("Oops! Something went wrong while saving your plant.");
@@ -148,13 +150,16 @@ export function AddPlantPage() {
             src={close}
             alt="Close icon"
             className="cursor-pointer"
-            onClick={() => navigate("/")}
+            onClick={() => navigate(`/?filter=${previousFilter || "all"}`)}
           />
         </div>
 
         {isSubmitting && (
-          <SubmitStatus status="loading" message={id ? "Saving changes..." : "Adding your plant..."} />
-          )}
+          <SubmitStatus
+            status="loading"
+            message={id ? "Saving changes..." : "Adding your plant..."}
+          />
+        )}
 
         <form onSubmit={handleSubmit}>
           {/* Common Name */}
@@ -306,11 +311,9 @@ export function AddPlantPage() {
           </div>
 
           {/* Image Upload */}
-          <div className="bg-[var(--color-background)] md:p-4 mt-6 rounded-sm">
+          <div className="bg-[var(--color-background)] p-2 md:p-4 mt-6 rounded-sm">
             <div className="flex flex-row gap-4 justify-between items-center">
-              <div className="text-h3 text-[var(--color-darkgreen)]">
-                Image
-              </div>
+              <div className="text-h3 text-[var(--color-darkgreen)]">Image</div>
               <label className="inline-block">
                 <input
                   id="plant-image"
@@ -346,9 +349,8 @@ export function AddPlantPage() {
               className="w-full bg-green-600 text-white py-3 rounded"
               width="w-full"
               disabled={isSubmitting}
-            >
-              {id ? "Save Change" : "Add a new Plant"}
-            </Button>
+              text={id ? "Save Change" : "Add a new Plant"}
+            ></Button>
           </div>
         </form>
       </div>

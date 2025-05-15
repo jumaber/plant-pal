@@ -1,11 +1,20 @@
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { PlantList } from "../components/PlantList";
 import { NavBar } from "../components/Navbar";
 import { FilterBar } from "../components/FilterBar";
 
 export function HomePage() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const queryFilter = new URLSearchParams(location.search).get("filter");
+
   const [plants, setPlants] = useState([]);
-  const [selectedFilter, setSelectedFilter] = useState("all");
+  const [selectedFilter, setSelectedFilter] = useState(queryFilter || "all");
+
+  useEffect(() => {
+    setSelectedFilter(queryFilter || "all");
+  }, [queryFilter]);
 
   // Fetch all plants from the backend
   const fetchPlants = () => {
@@ -32,7 +41,10 @@ export function HomePage() {
       const daysSinceWatered = Math.floor(
         (today - lastWateredDate) / (1000 * 60 * 60 * 24)
       );
-      const daysLeft = Math.max(plant.wateringFrequencyDays - daysSinceWatered, 0);
+      const daysLeft = Math.max(
+        plant.wateringFrequencyDays - daysSinceWatered,
+        0
+      );
 
       // Count plants that need water today
       if (daysLeft === 0) {
@@ -57,20 +69,31 @@ export function HomePage() {
       const daysSinceWatered = Math.floor(
         (today - lastWateredDate) / (1000 * 60 * 60 * 24)
       );
-      const daysLeft = Math.max(plant.wateringFrequencyDays - daysSinceWatered, 0);
+      const daysLeft = Math.max(
+        plant.wateringFrequencyDays - daysSinceWatered,
+        0
+      );
       return daysLeft === 0;
     }
 
     return plant.room === selectedFilter;
+
+
   });
+  
+  const handleFilterChange = (newFilter) => {
+    setSelectedFilter(newFilter);
+    navigate(`/?filter=${newFilter}`);
+  };
+
 
   return (
-    <div className="flex flex-col gap-8 bg-[var(--color-background)] px-4 py-24 lg:py–30 md:px-8 lg:px-20">
+    <div className="flex flex-col min-h-screen w-full overflow-x-auto gap-8 bg-[var(--color-background)] px-4 py-24 lg:py-30 md:px-8 lg:px-20">
       <NavBar />
       <div className="text-h1">My Plants</div>
       <FilterBar
         selectedFilter={selectedFilter}
-        onFilterChange={setSelectedFilter}
+        onFilterChange={handleFilterChange}
         plantCounts={plantCounts}
       />
       <PlantList plants={filteredPlants} fetchPlants={fetchPlants} />

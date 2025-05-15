@@ -149,7 +149,8 @@ export function PlantDetailPage() {
                   textColor="text-[var(--color-darkgreen)]"
                   width="max-w-fit"
                   paddingx="px-6"
-                  onClick={() => navigate(`/edit/${plant.id}`)}
+                  onClick={() => navigate(`/edit/${plant.id}?filter=${plant.room || "all"}`)}
+
                 />
               </div>
             </div>

@@ -7,7 +7,7 @@ export function SubmitStatus({
   if (status !== "loading") return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white bg-opacity-50 p-4">
       <img
         src={plantIcon}
         alt="Plant icon"
