@@ -6,7 +6,7 @@ import { useState } from "react";
 export function PlantCard({
   id,
   name = "Madagascar Jewel",
-  image = "src/assets/7.jpeg",
+  image = "https://res.cloudinary.com/jumaber/image/upload/v1746557482/Madagascar_Jewel_e6gwa8.jpg",
   room = "Kitchen",
   wateringFrequencyDays = 7,
   lastWatered = "2025-05-01",
@@ -80,7 +80,6 @@ export function PlantCard({
         </div>
 
         <ButtonCircle onClick={handleWaterPlant} />
-        
       </div>
       <WateringBar
         frequency={wateringFrequencyDays}
