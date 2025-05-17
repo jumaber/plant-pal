@@ -4,7 +4,7 @@ export function ButtonNext({ to, text = "Next →" }) {
   return (
     <Link
       to={to}
-      className="flex flex-row justify-end items-center text-base font-bold text-[var(--color-grey)] w-full py-4"
+      className="flex flex-row justify-end items-center text-sm lg:text-base text-[var(--color-grey)] w-full py-4"
     >
       {text}
     </Link>
