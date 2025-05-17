@@ -21,5 +21,4 @@ Plant Pal is a cheerful plant companion app that helps you track your houseplant
 
 - User authentication
 - Reminders & notifications
-- Dark mode 🌚
 - Plant database integration for auto-suggestions
