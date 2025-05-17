@@ -5,33 +5,49 @@ import { ButtonBack } from "../components/Button_Back";
 import { ButtonNarrow } from "../components/ButtonNarrow";
 import { WateringBar } from "../components/WateringBar";
 import { ButtonCircle } from "../components/Button_Circle";
+import { ButtonNext } from "../components/Button_Next";
 
 export function PlantDetailPage() {
   const { id } = useParams();
   const [plant, setPlant] = useState(null);
   const [clicked, setClicked] = useState(false); // Local toggle state for watering button
   const [originalLastWatered, setOriginalLastWatered] = useState(null); // To revert watering date if toggled off
+  const [allPlants, setAllPlants] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch plant data from backend by id
     fetch(`https://plantpal-backend-9iz1.onrender.com/plants/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setPlant(data);
         setOriginalLastWatered(data.lastWatered);
-
-        // Initialize 'clicked' as true if plant was watered today
         const lastWateredDate = new Date(data.lastWatered);
         const today = new Date();
         setClicked(lastWateredDate.toDateString() === today.toDateString());
       })
       .catch((err) => console.error("Failed to fetch plant:", err));
+
+    // Fetch all plants to compute next/previous
+    fetch("https://plantpal-backend-9iz1.onrender.com/plants")
+      .then((res) => res.json())
+      .then((data) => setAllPlants(data))
+      .catch((err) => console.error("Failed to fetch all plants:", err));
   }, [id]);
+
 
   if (!plant) return <div>Loading...</div>;
 
   const waterAmount = "💧".repeat(plant.thirstLevel ?? 0);
+
+  //Next and Previous plants
+  const sortedPlants = allPlants.sort((a, b) => a.id - b.id);
+  const currentIndex = sortedPlants.findIndex((p) => p.id === Number(id));
+  const prevId = currentIndex > 0 ? sortedPlants[currentIndex - 1].id : null;
+  const nextId =
+    currentIndex < sortedPlants.length - 1
+      ? sortedPlants[currentIndex + 1].id
+      : null;
+
 
   // Calculate days since last watering and how many days left before next watering
   const today = new Date();
@@ -97,9 +113,11 @@ export function PlantDetailPage() {
       <NavBar />
 
       <div className="flex flex-col min-h-screen bg-[var(--color-background)] px-4 py-20 lg:py–30 md:px-8 lg:px-20">
-        <div className="md:py-2 lg:py-4">
-          <ButtonBack />
+        <div className="flex flex-row w-full justify-between md:py-2 lg:py-4">
+          <ButtonBack to={prevId ? `/plant/${prevId}` : ""} />
+          <ButtonNext to={nextId ? `/plant/${nextId}` : ""} />
         </div>
+
         <div className="flex flex-col lg:flex-row lg:gap-8 justify-between">
           {/* IMAGE */}
           <div className="w-full lg:w-1/2 lg:h-fit bg-white rounded-md shadow-md p-4 flex justify-center items-center">
